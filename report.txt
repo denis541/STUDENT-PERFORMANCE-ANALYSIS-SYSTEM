@@ -1,0 +1,16 @@
+STUDENT PERFORMANCE REPORT
+====================================================================================================
+ID      Name              Prog    Math  English  Science  Average  Grade  Scholarship
+----------------------------------------------------------------------------------------------------
+25/222  Sandra Mutegi     MDS     75.0     80.0     70.0    75.00      B  N/A
+25/224  Carlos Ndunda     MDS     90.0     85.0     88.0    87.67      A  Eligible
+25/226  Paul Omboga       MDA     60.0     65.0     58.0    61.00      C  N/A
+25/228  Ruth Mwimali      MDA     95.0     92.0     90.0    92.33      A  Eligible
+25/230  Faith Njeri       MDS     45.0     50.0     40.0    45.00      F  N/A
+25/232  Brian Otieno      MDA     82.0     84.0     80.0    82.00      A  Not eligible
+----------------------------------------------------------------------------------------------------
+CLASS PERFORMANCE SUMMARY
+Highest average: Ruth Mwimali (92.33)
+Lowest average:  Faith Njeri (45.00)
+Class average:   73.83
+====================================================================================================
