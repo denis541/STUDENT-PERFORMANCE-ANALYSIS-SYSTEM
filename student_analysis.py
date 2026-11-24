@@ -1,12 +1,6 @@
-# Student Performance Analysis System
-# Loads student records from a CSV(students.csv) file, and then calculates the averages and grades,
-# checks for the student's scholarship eligibility and prints a performance report.(report.txt)
 
 import csv
 from abc import ABC, abstractmethod
-
-
-# each of the students mark in the program will go through the same check
 def check_mark(mark):
     if not isinstance(mark, (int, float)):
         raise ValueError(f"The Mark must be a number, got: {mark}")
@@ -15,21 +9,19 @@ def check_mark(mark):
 
 
 
-# part2: encapsulation and abstraction part 
+# encapsulation and abstraction part 
 
 class Student(ABC):
     def __init__(self, student_id, fname, lname, programme, marks):
-        # single underscore means its protected.
         self._student_id = student_id
         self._fname = fname
         self._lname = lname
         self._programme = programme
-        # double underscore means its private, so only Student's own methods touch it and can work or modify it 
+        # double underscore means its private, 
         self.__marks = {}
         for subject, mark in marks.items():
             self.set_mark(subject, mark)
 
-    # ---- getters are used here so that the other code doesn't touch the any attribute directly ----
     def get_student_id(self):
         return self._student_id
 
@@ -40,17 +32,13 @@ class Student(ABC):
         return self._programme
 
     def get_marks(self):
-        # this function is used here to give back a copy so nobody can change the real marks by accident
         return dict(self.__marks)
 
     def set_mark(self, subject, mark):
         check_mark(mark)
         self.__marks[subject] = mark
 
-    # ---- flexible interface using *marks ----
-    # calculate_average()              -> calculates the average of the student's marks
-    # calculate_average(70, 80, 90)    -> calculates the average of three marks that are given separately
-    # calculate_average(70, 80, 90, 60) -> this works for any number of marks
+    
     def calculate_average(self, *marks):
         if len(marks) == 0:
             marks = list(self.__marks.values())
@@ -76,40 +64,32 @@ class Student(ABC):
         else:
             return "F"
 
-    # abstract method: every subclass MUST write its own version
     @abstractmethod
     def get_details(self):
         pass
 
-
-# AIUStudent: a normal student, will fill in the abstract method
 class AIUStudent(Student):
     def get_details(self):
         return f"AIU student in {self.get_programme()}, grade {self.get_grade()}"
 
-    # here when a normal student have no scholarship, this says should say N/A
     def get_scholarship_status(self):
         return "N/A"
 
 # part 4: ScholarshipStudent will inherit from AIUStudent class above part
 class ScholarshipStudent(AIUStudent):
     def __init__(self, student_id, fname, lname, programme, marks, scholarship_amount):
-        # the function below will let the parent class to set up all the normal students data
         super().__init__(student_id, fname, lname, programme, marks)
         self.scholarship_amount = scholarship_amount
 
-    # here a scholarship will need an average of at least 85 marks
     def is_eligible(self):
         return self.calculate_average() >= 85
 
-    # overriding get_details: reuse the parent's text and add scholarship info
     def get_details(self):
         details = super().get_details()
         if self.is_eligible():
             return details + f" | scholarship of {self.scholarship_amount:,} (eligible)"
         return details + " | on scholarship list but average is below 85"
 
-    # overriding will get_scholarship_status too
     def get_scholarship_status(self):
         if self.is_eligible():
             return "Eligible"
@@ -118,7 +98,7 @@ class ScholarshipStudent(AIUStudent):
 
 
 # part 3: the PerformanceAnalyzer class 
-# It holds the student objects themselves, it doesn't copy their data at all.
+# It holds the student objects themselves
 class PerformanceAnalyzer:
     def __init__(self, students):
         if len(students) == 0:
@@ -146,7 +126,6 @@ class PerformanceAnalyzer:
         return total / len(self.students)
 
     # ---- part7: the report, this report will be generated then it will be save as report.txt ----
-    # filename is optional, if given the report is also saved to a file
     def generate_report(self, filename=None):
         lines = []
         lines.append("STUDENT PERFORMANCE REPORT")
@@ -185,7 +164,7 @@ class PerformanceAnalyzer:
 
 
 
-# Read the CSV file and build the student objects from the file contents
+# this will read the csv file and build the objects from the details 
 def load_students(filename):
     students = []
     with open(filename) as file:
@@ -212,7 +191,7 @@ def load_students(filename):
 def main():
     students = load_students("students.csv")
 
-    # part 5: polymorphism
+    # part 5: polymorphism 
     print("POLYMORPHISM DEMO")
     for student in students:
         print(f"{student.get_full_name()}: {student.get_details()}")
