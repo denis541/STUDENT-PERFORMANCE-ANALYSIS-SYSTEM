@@ -8,9 +8,10 @@ ID      Name              Prog    Math  English  Science  Average  Grade  Schola
 25/228  Ruth Mwimali      MDA     95.0     92.0     90.0    92.33      A  Eligible
 25/230  Faith Njeri       MDS     45.0     50.0     40.0    45.00      F  N/A
 25/232  Brian Otieno      MDA     82.0     84.0     80.0    82.00      A  Not eligible
+25/232  denis onduso      BSIT    92.0     80.0     88.0    86.67      A  Eligible
 ----------------------------------------------------------------------------------------------------
 CLASS PERFORMANCE SUMMARY
 Highest average: Ruth Mwimali (92.33)
 Lowest average:  Faith Njeri (45.00)
-Class average:   73.83
+Class average:   75.67
 ====================================================================================================
